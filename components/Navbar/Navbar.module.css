@@ -1,0 +1,12 @@
+.Navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  padding: 1rem 0;
+}
+
+.Navbar > a {
+  text-decoration: none;
+  margin-right: 2rem;
+}

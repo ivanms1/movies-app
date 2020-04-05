@@ -1,6 +1,7 @@
 import useSWR from 'swr';
 
 import Layout from '../../components/Layout';
+import DisplayGrid from '../../components/DisplayGrid';
 
 import fetcher from '../../utils/fetcher';
 
@@ -21,7 +22,7 @@ interface DataProps {
 }
 
 const Popular = () => {
-  const { data, error } = useSWR<DataProps>('/movie/popular', fetcher);
+  const { data, error } = useSWR<DataProps>('/movie/popular?&page=1&', fetcher);
   if (!data || error) {
     return null;
   }
@@ -29,13 +30,7 @@ const Popular = () => {
     <Layout>
       <h1>Popular Movies</h1>
       <div>
-        {data.results.map((movie) => (
-          <img
-            key={movie.id}
-            src={process.env.imageBaseUrl + movie.poster_path}
-            alt={movie.title}
-          />
-        ))}
+        <DisplayGrid movies={data.results} />
       </div>
     </Layout>
   );

@@ -1,8 +1,10 @@
 import Link from 'next/link';
 
+import styles from './Navbar.module.css';
+
 const Navbar = () => {
   return (
-    <div>
+    <div className={styles.Navbar}>
       <Link href='/popular'>
         <a>Most popular</a>
       </Link>

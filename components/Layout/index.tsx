@@ -1,12 +1,14 @@
 import Navbar from '../Navbar';
 
+import styles from './Layout.module.css';
+
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div>
+    <div className={styles.Container}>
       <Navbar />
       {children}
     </div>
