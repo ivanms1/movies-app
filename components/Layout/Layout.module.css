@@ -4,6 +4,6 @@
 
 @media (min-width: 800px) {
   .Container {
-    padding: 4rem 6rem;
+    padding: 5rem 6rem 0 6rem;
   }
 }

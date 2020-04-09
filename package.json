@@ -17,6 +17,7 @@
     "node-fetch": "^2.6.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-waypoint": "^9.0.2",
     "swr": "^0.2.0",
     "unfetch": "^4.1.0"
   },

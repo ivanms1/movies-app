@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 
 import Layout from '../../components/Layout';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import fetcher from '../../utils/fetcher';
 import DisplayGrid from '../../components/DisplayGrid';
-import { InputGroup, Button } from '@blueprintjs/core';
+import { InputGroup, Button, Spinner } from '@blueprintjs/core';
 
 import styles from './search.module.css';
+import { Waypoint } from 'react-waypoint';
 
 const Search = () => {
   const [shouldFetch, setShouldFetch] = useState(false);
   const [query, setQuery] = useState('');
-  const { data, error, isValidating } = useSWR(
+  const { data, isValidating } = useSWR(
     shouldFetch
       ? `/search/movie?query=${query}&page=1&include_adult=false&`
       : null,
@@ -22,6 +23,7 @@ const Search = () => {
     e.preventDefault();
     setShouldFetch(true);
   };
+
   return (
     <Layout>
       <div className={styles.SearchContainer}>
@@ -44,11 +46,35 @@ const Search = () => {
               Search
             </Button>
           </div>
-
           {data && Array.isArray(data.results) && (
             <DisplayGrid movies={data.results} />
           )}
+          {data && data.page <= data.total_pages && (
+            <Waypoint
+              onEnter={async () => {
+                mutate(
+                  `/search/movie?query=${query}&page=1&include_adult=false&`,
+                  async (movies: any) => {
+                    const newMovies = await fetcher(
+                      `/search/movie?query=${query}&page=${
+                        movies.page + 1
+                      }&include_adult=false&`
+                    );
+                    return {
+                      ...newMovies,
+                      results: [...movies.results, ...newMovies.results],
+                    };
+                  },
+                  false
+                );
+              }}
+              bottomOffset='-50%'
+            />
+          )}
         </form>
+        {!data && shouldFetch && (
+          <Spinner className={styles.Loader} intent='primary' />
+        )}
       </div>
     </Layout>
   );

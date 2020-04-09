@@ -19,7 +19,7 @@ const Home = () => (
       <div className={styles.Subtitles}>
         <Link href='/popular'>
           <motion.p whileHover={{ scale: 1.2, rotate: 5 }}>
-            Discover the most popular movies
+            Discover popular movies
           </motion.p>
         </Link>
         <img className={styles.Image} src={movies} alt='movies' />
