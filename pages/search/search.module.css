@@ -1,6 +1,8 @@
 .SearchContainer {
   min-height: calc(100vh - 7.2rem);
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .Loader {
@@ -17,8 +19,16 @@
   min-width: 300px;
   margin-right: 1rem;
 }
+.SearchImage {
+  align-self: center;
+}
+
 @media (min-width: 800px) {
   .SearchContainer {
     min-height: calc(100vh - 9.2rem);
+  }
+
+  .SearchImage {
+    height: 500px;
   }
 }

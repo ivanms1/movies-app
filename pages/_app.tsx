@@ -12,7 +12,7 @@ function MyApp({ Component, router, pageProps }: AppProps) {
     when: 'afterChildren',
   };
   return (
-    <AnimatePresence>
+    <AnimatePresence exitBeforeEnter>
       <div className='homepage'>
         <Navbar />
         <motion.div

@@ -1,5 +1,5 @@
 .Container {
-  padding: 3rem;
+  padding: 3rem 2.5rem;
 }
 
 @media (min-width: 800px) {

@@ -10,18 +10,24 @@
   font-size: 3rem;
   text-transform: uppercase;
   letter-spacing: 1rem;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
 .Subtitles {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   align-items: center;
 }
 
+.Subtitles > p:first-child {
+  margin-bottom: 2rem;
+}
+
 .Image {
-  height: 240px;
-  margin: 0 5rem;
+  height: 120px;
+  margin-bottom: 2rem;
 }
 
 .Subtitles > p {
@@ -33,4 +39,24 @@
 
 .Subtitles > p:hover {
   color: white;
+}
+
+@media (min-width: 800px) {
+  .Title {
+    margin-bottom: 4rem;
+  }
+  .Subtitles {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+  }
+  .Subtitles > p:first-child {
+    margin-bottom: 0;
+  }
+
+  .Image {
+    height: 240px;
+    margin: 0 5rem;
+  }
 }

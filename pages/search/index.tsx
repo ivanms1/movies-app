@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-
-import Layout from '../../components/Layout';
+import { Waypoint } from 'react-waypoint';
 import useSWR, { mutate } from 'swr';
-import fetcher from '../../utils/fetcher';
-import DisplayGrid from '../../components/DisplayGrid';
 import { InputGroup, Button, Spinner } from '@blueprintjs/core';
 
+import Layout from '../../components/Layout';
+import DisplayGrid from '../../components/DisplayGrid';
+
+import fetcher from '../../utils/fetcher';
+
+import searchImage from '../../assets/search.svg';
+
 import styles from './search.module.css';
-import { Waypoint } from 'react-waypoint';
 
 const Search = () => {
   const [shouldFetch, setShouldFetch] = useState(false);
@@ -28,7 +31,7 @@ const Search = () => {
     <Layout>
       <div className={styles.SearchContainer}>
         <h1>Search Movies</h1>
-        <form onSubmit={handleSubmit}>
+        <form className={styles.Form} onSubmit={handleSubmit}>
           <div className={styles.SearchBar}>
             <InputGroup
               value={query}
@@ -46,32 +49,35 @@ const Search = () => {
               Search
             </Button>
           </div>
-          {data && Array.isArray(data.results) && (
-            <DisplayGrid movies={data.results} />
-          )}
-          {data && data.page <= data.total_pages && (
-            <Waypoint
-              onEnter={async () => {
-                mutate(
-                  `/search/movie?query=${query}&page=1&include_adult=false&`,
-                  async (movies: any) => {
-                    const newMovies = await fetcher(
-                      `/search/movie?query=${query}&page=${
-                        movies.page + 1
-                      }&include_adult=false&`
-                    );
-                    return {
-                      ...newMovies,
-                      results: [...movies.results, ...newMovies.results],
-                    };
-                  },
-                  false
-                );
-              }}
-              bottomOffset='-50%'
-            />
-          )}
         </form>
+        {data && Array.isArray(data.results) && data.results.length > 0 ? (
+          <DisplayGrid movies={data.results} />
+        ) : (
+          <img className={styles.SearchImage} src={searchImage} alt='search' />
+        )}
+        {data && data.page <= data.total_pages && (
+          <Waypoint
+            onEnter={async () => {
+              mutate(
+                `/search/movie?query=${query}&page=1&include_adult=false&`,
+                async (movies: any) => {
+                  const newMovies = await fetcher(
+                    `/search/movie?query=${query}&page=${
+                      movies.page + 1
+                    }&include_adult=false&`
+                  );
+                  return {
+                    ...newMovies,
+                    results: [...movies.results, ...newMovies.results],
+                  };
+                },
+                false
+              );
+            }}
+            bottomOffset='-50%'
+          />
+        )}
+
         {!data && shouldFetch && (
           <Spinner className={styles.Loader} intent='primary' />
         )}

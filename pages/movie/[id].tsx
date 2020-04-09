@@ -35,8 +35,6 @@ const getUserScoreColor = (score: number) => {
 
 const movie = ({ movie }: movieProps) => {
   const router = useRouter();
-
-  console.log(movie);
   return (
     <Layout>
       {!router.isFallback ? (

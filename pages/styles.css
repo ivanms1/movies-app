@@ -17,7 +17,4 @@
     rgba(255, 181, 3, 1) 0%,
     rgba(255, 193, 4, 1) 35%
   );
-  background-size: contain;
-  background-position: 60% 75%;
-  background-attachment: fixed;
 }
