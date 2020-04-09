@@ -15,7 +15,7 @@ const Home = () => (
       <link rel='icon' href='/favicon.ico' />
     </Head>
     <div className={styles.Home}>
-      <h1 className={styles.Title}>Welcome to the Movie App</h1>
+      <p className={styles.Title}>The Movie App</p>
       <div className={styles.Subtitles}>
         <Link href='/popular'>
           <motion.p whileHover={{ scale: 1.2, rotate: 5 }}>

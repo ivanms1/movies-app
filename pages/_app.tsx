@@ -18,9 +18,9 @@ function MyApp({ Component, router, pageProps }: AppProps) {
         <motion.div
           transition={spring}
           key={router.pathname}
-          initial={{ scale: 0 }}
-          animate={{ rotate: 360, scale: 1 }}
-          exit={{ scale: 0 }}
+          initial={{ x: 300 }}
+          animate={{ x: 0 }}
+          exit={{ x: 300 }}
           id='page-transition-container'
         >
           <Component key={router.pathname} {...pageProps} />
