@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 import Layout from '../components/Layout';
 
@@ -17,11 +18,15 @@ const Home = () => (
       <h1 className={styles.Title}>Welcome to the Movie App</h1>
       <div className={styles.Subtitles}>
         <Link href='/popular'>
-          <p>Discover the most popular movies</p>
+          <motion.p whileHover={{ scale: 1.2, rotate: 5 }}>
+            Discover the most popular movies
+          </motion.p>
         </Link>
         <img className={styles.Image} src={movies} alt='movies' />
         <Link href='/popular'>
-          <p>Search your favorite movies</p>
+          <motion.p whileHover={{ scale: 1.2, rotate: -5 }}>
+            Search your favorite movies
+          </motion.p>
         </Link>
       </div>
     </div>
