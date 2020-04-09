@@ -8,7 +8,9 @@ const Home = () => (
       <title>Movies App</title>
       <link rel='icon' href='/favicon.ico' />
     </Head>
-    <h1>Welcome to the Movie App</h1>
+    <div className='homepage'>
+      <h1>Welcome to the Movie App</h1>
+    </div>
   </Layout>
 );
 

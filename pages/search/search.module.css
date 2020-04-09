@@ -1,0 +1,16 @@
+.SearchContainer {
+  min-height: calc(100vh - 7.2rem);
+}
+
+.SearchBar {
+  display: flex;
+}
+.SearchInput {
+  min-width: 300px;
+  margin-right: 1rem;
+}
+@media (min-width: 800px) {
+  .SearchContainer {
+    min-height: calc(100vh - 9.2rem);
+  }
+}

@@ -4,6 +4,9 @@ import Layout from '../../components/Layout';
 import useSWR from 'swr';
 import fetcher from '../../utils/fetcher';
 import DisplayGrid from '../../components/DisplayGrid';
+import { InputGroup, Button } from '@blueprintjs/core';
+
+import styles from './search.module.css';
 
 const Search = () => {
   const [shouldFetch, setShouldFetch] = useState(false);
@@ -21,22 +24,32 @@ const Search = () => {
   };
   return (
     <Layout>
-      <h1>Search Movies</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          value={query}
-          onChange={(e) => {
-            if (shouldFetch) {
-              setShouldFetch(false);
-            }
-            setQuery(e.target.value);
-          }}
-        />
-        <button type='submit'>Search</button>
-        {data && Array.isArray(data.results) && (
-          <DisplayGrid movies={data.results} />
-        )}
-      </form>
+      <div className={styles.SearchContainer}>
+        <h1>Search Movies</h1>
+        <form onSubmit={handleSubmit}>
+          <div className={styles.SearchBar}>
+            <InputGroup
+              value={query}
+              className={styles.SearchInput}
+              onChange={(e: any) => {
+                if (shouldFetch) {
+                  setShouldFetch(false);
+                }
+                setQuery(e.target.value);
+              }}
+              placeholder='Search for your favorite movies'
+              leftIcon='film'
+            />
+            <Button type='submit' intent='primary'>
+              Search
+            </Button>
+          </div>
+
+          {data && Array.isArray(data.results) && (
+            <DisplayGrid movies={data.results} />
+          )}
+        </form>
+      </div>
     </Layout>
   );
 };

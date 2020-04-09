@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import { useRouter } from 'next/router';
 import format from 'date-fns/format';
-import { Spinner } from '@blueprintjs/core';
+import { Spinner, Button } from '@blueprintjs/core';
 
 import Layout from '../../components/Layout';
 
@@ -35,42 +35,55 @@ const getUserScoreColor = (score: number) => {
 
 const movie = ({ movie }: movieProps) => {
   const router = useRouter();
-  if (router.isFallback) {
-    return <div>Loading...</div>;
-  }
 
   console.log(movie);
   return (
-    <div
-      style={{
-        backgroundImage: `url(${
-          process.env.imageBackdropBaseUrl + movie.backdrop_path
-        })`,
-      }}
-      className={styles.Container}
-    >
-      <Layout>
-        <button onClick={() => router.back()}>Go Back</button>
-        <div>
-          <h1>
-            {movie.title} ({format(new Date(movie.release_date), 'yyyy')})
-          </h1>
-          <div>
-            <span>{format(new Date(movie.release_date), 'dd/MM/yyyy')}</span> *{' '}
-            <span>{movie.genres.map((genre) => genre.name).join(', ')}</span>
+    <Layout>
+      {!router.isFallback ? (
+        <div
+          style={{
+            backgroundImage: `url(${
+              process.env.imageBackdropBaseUrl + movie.backdrop_path
+            })`,
+          }}
+          className={styles.Container}
+        >
+          <Button
+            className={styles.BackButton}
+            intent='danger'
+            onClick={() => router.back()}
+          >
+            Go Back
+          </Button>
+          <div className={styles.InfoContainer}>
+            <h1 className={styles.Title}>
+              {movie.title} ({format(new Date(movie.release_date), 'yyyy')})
+            </h1>
+            <div className={styles.Details}>
+              <span>{format(new Date(movie.release_date), 'dd/MM/yyyy')}</span>{' '}
+              &bull;{' '}
+              <span>{movie.genres.map((genre) => genre.name).join(', ')}</span>
+            </div>
+            <div className={styles.ScoreAndTagline}>
+              <div className={styles.ScoreContainer}>
+                <span className={styles.Score}>{movie.vote_average * 10}%</span>
+                <Spinner
+                  value={movie.vote_average / 10}
+                  intent={getUserScoreColor(movie.vote_average)}
+                />
+              </div>
+              <span className={styles.Tagline}>{movie.tagline}</span>
+            </div>
+
+            <p className={styles.Overview}>{movie.overview}</p>
           </div>
-          <div>
-            <span>{movie.vote_average * 10}</span>
-            <Spinner
-              value={movie.vote_average / 10}
-              intent={getUserScoreColor(movie.vote_average)}
-            />
-          </div>
-          <span>{movie.tagline}</span>
-          <p>{movie.overview}</p>
         </div>
-      </Layout>
-    </div>
+      ) : (
+        <div className={styles.LoadingContainer}>
+          <Spinner intent='primary' />
+        </div>
+      )}
+    </Layout>
   );
 };
 
