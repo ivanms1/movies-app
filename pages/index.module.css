@@ -1,0 +1,35 @@
+.Home {
+  display: flex;
+  margin-top: 1.5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Title {
+  font-size: 2rem;
+  margin-bottom: 6rem;
+}
+
+.Subtitles {
+  display: flex;
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.Image {
+  height: 240px;
+  margin: 0 5rem;
+}
+
+.Subtitles > p {
+  font-size: 1.6rem;
+  margin-top: 6rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.Subtitles > p:hover {
+  color: white;
+}

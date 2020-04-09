@@ -1,9 +1,5 @@
 .Container {
   padding: 3rem;
-  background-image: url(../../assets/bg.jpg);
-  background-size: cover;
-  background-position: 0 75%;
-  background-attachment: fixed;
 }
 
 @media (min-width: 800px) {

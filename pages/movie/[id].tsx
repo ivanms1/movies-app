@@ -89,7 +89,7 @@ const movie = ({ movie }: movieProps) => {
 
 export async function getStaticPaths() {
   return {
-    paths: [{ params: { id: '1' } }],
+    paths: [{ params: { id: '495764' } }],
     fallback: true,
   };
 }

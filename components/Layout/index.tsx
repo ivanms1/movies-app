@@ -1,5 +1,3 @@
-import Navbar from '../Navbar';
-
 import styles from './Layout.module.css';
 
 interface LayoutProps {
@@ -7,12 +5,7 @@ interface LayoutProps {
 }
 
 const Layout = ({ children }: LayoutProps) => {
-  return (
-    <div className={styles.Container}>
-      <Navbar />
-      {children}
-    </div>
-  );
+  return <div className={styles.Container}>{children}</div>;
 };
 
 export default Layout;

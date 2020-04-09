@@ -3,10 +3,20 @@
   top: 0;
   width: 100%;
   display: flex;
-  padding: 1rem 0;
+  padding: 1rem 3rem;
+  background-color: rgba(255, 193, 4, 0.9);
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  z-index: 10;
 }
 
 .Navbar > a {
   text-decoration: none;
   margin-right: 2rem;
+  font-size: 1.2rem;
+  color: black;
+}
+
+.Navbar > a:hover {
+  color: white;
 }
