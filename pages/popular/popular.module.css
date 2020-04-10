@@ -1,0 +1,25 @@
+.Popular {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Title {
+  align-self: start;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 800px) {
+  .Popular {
+    margin-top: 0;
+  }
+
+  .Title {
+    margin-bottom: 0;
+  }
+
+  .GridContainer {
+    width: 100%;
+  }
+}

@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import { useRouter } from 'next/router';
 import format from 'date-fns/format';
-import { Spinner, Button } from '@blueprintjs/core';
+import { Spinner } from '@blueprintjs/core';
 
 import Layout from '../../components/Layout';
 
@@ -36,7 +36,7 @@ const getUserScoreColor = (score: number) => {
 const movie = ({ movie }: movieProps) => {
   const router = useRouter();
   return (
-    <Layout>
+    <Layout className={styles.MovieLayout}>
       {!router.isFallback ? (
         <div
           style={{
@@ -46,13 +46,6 @@ const movie = ({ movie }: movieProps) => {
           }}
           className={styles.Container}
         >
-          <Button
-            className={styles.BackButton}
-            intent='danger'
-            onClick={() => router.back()}
-          >
-            Go Back
-          </Button>
           <div className={styles.InfoContainer}>
             <h1 className={styles.Title}>
               {movie.title} ({format(new Date(movie.release_date), 'yyyy')})

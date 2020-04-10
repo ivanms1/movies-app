@@ -8,7 +8,7 @@ function MyApp({ Component, router, pageProps }: AppProps) {
   const spring = {
     type: 'spring',
     damping: 20,
-    stiffness: 260,
+    stiffness: 150,
     when: 'afterChildren',
   };
   return (
@@ -18,9 +18,9 @@ function MyApp({ Component, router, pageProps }: AppProps) {
         <motion.div
           transition={spring}
           key={router.pathname}
-          initial={{ x: 300 }}
-          animate={{ x: 0 }}
-          exit={{ x: 300 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           id='page-transition-container'
         >
           <Component key={router.pathname} {...pageProps} />

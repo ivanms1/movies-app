@@ -6,6 +6,10 @@ import DisplayGrid from '../../components/DisplayGrid';
 
 import fetcher from '../../utils/fetcher';
 
+import styles from './popular.module.css';
+import { useState } from 'react';
+import { Toast } from '../../components/Toaster';
+
 interface DataProps {
   page: number;
   total_pages: number;
@@ -25,35 +29,56 @@ interface DataProps {
 }
 
 const Popular = () => {
-  const { data, error } = useSWR<DataProps>(`/movie/popular?&page=1&`, fetcher);
-  if (!data || error) {
+  const [error, setError] = useState(null);
+  const { data, error: fetchError } = useSWR<DataProps>(
+    `/movie/popular?&page=1&`,
+    fetcher
+  );
+  if (!data) {
     return null;
+  }
+
+  if (fetchError) {
+    Toast?.show({
+      message: 'An error ocurred',
+      intent: 'danger',
+    });
   }
   return (
     <Layout>
-      <h1>Popular Movies</h1>
-      <div>
-        <DisplayGrid movies={data.results} />
-        {data.page <= data.total_pages && (
-          <Waypoint
-            onEnter={async () => {
-              mutate(
-                `/movie/popular?&page=1&`,
-                async (movies: any) => {
-                  const newMovies = await fetcher(
-                    `/movie/popular?&page=${movies.page + 1}&`
-                  );
-                  return {
-                    ...newMovies,
-                    results: [...movies.results, ...newMovies.results],
-                  };
-                },
-                false
-              );
-            }}
-            bottomOffset='-50%'
-          />
-        )}
+      <div className={styles.Popular}>
+        <h1 className={styles.Title}>Popular Movies</h1>
+        <div className={styles.GridContainer}>
+          <DisplayGrid movies={data.results} />
+          {data.page <= data.total_pages && (
+            <Waypoint
+              onEnter={async () => {
+                mutate(
+                  `/movie/popular?&page=1&`,
+                  async (movies: any) => {
+                    let newMovies;
+                    try {
+                      newMovies = await fetcher(
+                        `/movie/popular?&page=${movies.page + 1}&`
+                      );
+                    } catch (error) {
+                      Toast?.show({
+                        message: 'An error ocurred',
+                        intent: 'danger',
+                      });
+                    }
+                    return {
+                      ...newMovies,
+                      results: [...movies.results, ...newMovies.results],
+                    };
+                  },
+                  false
+                );
+              }}
+              bottomOffset='-50%'
+            />
+          )}
+        </div>
       </div>
     </Layout>
   );

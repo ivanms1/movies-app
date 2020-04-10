@@ -9,6 +9,7 @@ import DisplayGrid from '../../components/DisplayGrid';
 import fetcher from '../../utils/fetcher';
 
 import searchImage from '../../assets/search.svg';
+import noResultsImage from '../../assets/no_results.svg';
 
 import styles from './search.module.css';
 
@@ -50,8 +51,16 @@ const Search = () => {
             </Button>
           </div>
         </form>
-        {data && Array.isArray(data.results) && data.results.length > 0 ? (
-          <DisplayGrid movies={data.results} />
+        {data && Array.isArray(data.results) ? (
+          data.results.length > 0 ? (
+            <DisplayGrid movies={data.results} />
+          ) : (
+            <img
+              className={styles.SearchImage}
+              src={noResultsImage}
+              alt='no results'
+            />
+          )
         ) : (
           <img className={styles.SearchImage} src={searchImage} alt='search' />
         )}
