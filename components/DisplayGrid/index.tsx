@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 import styles from './DisplayGrid.module.css';
-import { Tooltip } from '@blueprintjs/core';
 
 interface DisplayGridProps {
   movies: {
@@ -23,22 +22,17 @@ const DisplayGrid = ({ movies }: DisplayGridProps) => {
   return (
     <div className={styles.DisplayGrid}>
       {movies.map((movie) => (
-        <Tooltip key={movie.id} content={movie.title}>
-          <Link
-            href={`/movie-to-show?id=${movie.id}`}
-            as={`/movie/${movie.id}`}
-          >
-            <img
-              className={styles.MoviePoster}
-              src={
-                movie.poster_path
-                  ? process.env.imageBaseUrl + movie.poster_path
-                  : 'https://via.placeholder.com/185x278?text=No+Poster'
-              }
-              alt={movie.title}
-            />
-          </Link>
-        </Tooltip>
+        <Link href={`/movie-to-show?id=${movie.id}`} as={`/movie/${movie.id}`}>
+          <img
+            className={styles.MoviePoster}
+            src={
+              movie.poster_path
+                ? process.env.imageBaseUrl + movie.poster_path
+                : 'https://via.placeholder.com/185x278?text=No+Poster'
+            }
+            alt={movie.title}
+          />
+        </Link>
       ))}
     </div>
   );
