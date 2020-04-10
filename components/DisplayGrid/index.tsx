@@ -24,7 +24,10 @@ const DisplayGrid = ({ movies }: DisplayGridProps) => {
     <div className={styles.DisplayGrid}>
       {movies.map((movie) => (
         <Tooltip key={movie.id} content={movie.title}>
-          <Link href={`/movie?id=${movie.id}`} as={`/movie/${movie.id}`}>
+          <Link
+            href={`/movie-to-show?id=${movie.id}`}
+            as={`/movie/${movie.id}`}
+          >
             <img
               className={styles.MoviePoster}
               src={
