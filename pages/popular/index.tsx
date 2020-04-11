@@ -25,6 +25,11 @@ interface DataProps {
     vote_average: number;
     overview: string;
     release_date: number;
+    tagline: string;
+    genres: {
+      id: number;
+      name: string;
+    }[];
   }[];
 }
 
@@ -75,7 +80,7 @@ const Popular = () => {
                   false
                 );
               }}
-              bottomOffset='-50%'
+              bottomOffset='-20%'
             />
           )}
         </div>

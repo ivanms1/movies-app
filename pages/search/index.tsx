@@ -16,7 +16,7 @@ import styles from './search.module.css';
 const Search = () => {
   const [shouldFetch, setShouldFetch] = useState(false);
   const [query, setQuery] = useState('');
-  const { data, isValidating } = useSWR(
+  const { data } = useSWR(
     shouldFetch
       ? `/search/movie?query=${query}&page=1&include_adult=false&`
       : null,
