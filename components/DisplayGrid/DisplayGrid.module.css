@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .MoviePoster {
@@ -22,7 +23,7 @@
   .DisplayGrid {
     display: grid;
     padding: 2em 5rem;
-    gap: 2rem 0;
+    gap: 2rem 10rem;
     grid-template-columns: repeat(4, 1fr);
   }
 

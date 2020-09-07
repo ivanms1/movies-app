@@ -4,6 +4,9 @@
 
 @media (min-width: 800px) {
   .Container {
-    padding: 5rem 6rem 0 6rem;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

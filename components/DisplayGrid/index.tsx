@@ -53,6 +53,7 @@ const DisplayGrid = ({ movies }: DisplayGridProps) => {
     movie: MovieProps | null;
     isOpen: boolean;
   }>({ movie: null, isOpen: false });
+
   return (
     <motion.div
       className={styles.DisplayGrid}
@@ -60,7 +61,7 @@ const DisplayGrid = ({ movies }: DisplayGridProps) => {
       initial='hidden'
       animate='visible'
     >
-      {movies.map((movie) => (
+      {movies?.map((movie) => (
         <motion.img
           key={movie.id}
           onClick={() =>
