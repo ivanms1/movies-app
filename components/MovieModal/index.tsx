@@ -1,11 +1,8 @@
 import format from 'date-fns/format';
-import useSWR from 'swr';
 import { Dialog, Spinner, Icon } from '@blueprintjs/core';
 import { Toast } from '../Toaster';
-
-import { MovieProps } from '../DisplayGrid';
-
-import fetcher from '../../utils/fetcher';
+import { useQuery } from 'react-query';
+import axios from 'axios';
 
 import styles from './MovieModal.module.css';
 
@@ -28,7 +25,10 @@ const MovieModal = ({
   onClose,
   onClosed,
 }: MovieModalProps) => {
-  const { data, error } = useSWR<MovieProps>(`/movie/${movieId}?`, fetcher);
+  const { data, error } = useQuery(['movie', movieId], async () => {
+    const { data } = await axios.get(`/api/movie?movieId=${movieId}`);
+    return data?.data;
+  });
 
   if (error) {
     Toast?.show({

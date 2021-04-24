@@ -10,17 +10,16 @@
   "dependencies": {
     "@blueprintjs/core": "^3.24.0",
     "@types/node-fetch": "^2.5.5",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "date-fns": "^2.11.1",
     "framer-motion": "^1.10.3",
     "next": "9.3.4",
     "next-images": "^1.4.0",
-    "node-fetch": "^2.6.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-waypoint": "^9.0.2",
-    "swr": "^0.2.0",
-    "unfetch": "^4.1.0"
+    "react-query": "^3.13.6",
+    "react-waypoint": "^9.0.2"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.10",

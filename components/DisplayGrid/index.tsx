@@ -48,7 +48,7 @@ const item = {
   },
 };
 
-const DisplayGrid = ({ movies }: DisplayGridProps) => {
+const DisplayGrid = ({ movies }: any) => {
   const [movieModal, setMovieModal] = useState<{
     movie: MovieProps | null;
     isOpen: boolean;
@@ -61,7 +61,7 @@ const DisplayGrid = ({ movies }: DisplayGridProps) => {
       initial='hidden'
       animate='visible'
     >
-      {movies?.map((movie) => (
+      {movies?.map((movie: any) => (
         <motion.img
           key={movie.id}
           onClick={() =>

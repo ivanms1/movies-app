@@ -1,14 +1,13 @@
-import useSWR, { mutate } from 'swr';
+import { useRef } from 'react';
+import axios from 'axios';
+import { useInfiniteQuery } from 'react-query';
 import { Waypoint } from 'react-waypoint';
 
 import Layout from '../../components/Layout';
 import DisplayGrid from '../../components/DisplayGrid';
-
-import fetcher from '../../utils/fetcher';
+import { Toast } from '../../components/Toaster';
 
 import styles from './popular.module.css';
-import { useState } from 'react';
-import { Toast } from '../../components/Toaster';
 
 interface DataProps {
   page: number;
@@ -34,55 +33,45 @@ interface DataProps {
 }
 
 const Popular = () => {
-  const [error, setError] = useState(null);
-  const { data, error: fetchError } = useSWR<DataProps>(
-    `/movie/popular?&page=1&`,
-    fetcher
+  const currentPage = useRef(1);
+  const { data, error, fetchNextPage } = useInfiniteQuery(
+    'popular',
+    async ({ pageParam = currentPage.current }) => {
+      const { data } = await axios.get(`/api/popular?page=${pageParam}`);
+      currentPage.current = currentPage.current + 1;
+      return data;
+    },
+    {
+      getNextPageParam() {
+        if (data?.pages[0]?.total_pages === currentPage.current) {
+          return undefined;
+        }
+        return currentPage.current;
+      },
+    }
   );
+
   if (!data) {
     return null;
   }
 
-  if (fetchError) {
+  if (error) {
     Toast?.show({
       message: 'An error ocurred',
       intent: 'danger',
     });
   }
+
   return (
     <Layout>
       <div className={styles.Popular}>
         <h1 className={styles.Title}>Popular Movies</h1>
         <div className={styles.GridContainer}>
-          <DisplayGrid movies={data.results} />
-          {data.page <= data.total_pages && (
-            <Waypoint
-              onEnter={async () => {
-                mutate(
-                  `/movie/popular?&page=1&`,
-                  async (movies: any) => {
-                    let newMovies;
-                    try {
-                      newMovies = await fetcher(
-                        `/movie/popular?&page=${movies.page + 1}&`
-                      );
-                    } catch (error) {
-                      Toast?.show({
-                        message: 'An error ocurred',
-                        intent: 'danger',
-                      });
-                    }
-                    return {
-                      ...newMovies,
-                      results: [...movies.results, ...newMovies.results],
-                    };
-                  },
-                  false
-                );
-              }}
-              bottomOffset='-20%'
-            />
-          )}
+          {data?.pages?.map((group, i) => (
+            <DisplayGrid key={i} movies={group?.data?.results} />
+          ))}
+
+          <Waypoint onEnter={() => fetchNextPage()} bottomOffset='-20%' />
         </div>
       </div>
     </Layout>
