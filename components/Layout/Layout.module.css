@@ -1,5 +1,5 @@
 .Container {
-  padding: 3rem 1rem;
+  padding: 3rem 2rem;
 }
 
 @media (min-width: 800px) {
@@ -8,5 +8,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 3rem 5rem;
   }
 }

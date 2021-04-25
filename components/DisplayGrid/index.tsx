@@ -71,8 +71,8 @@ const DisplayGrid = ({ movies }: any) => {
             })
           }
           whileHover={{
-            scale: 1.05,
-            transition: { duration: 0.2 },
+            scale: 1.03,
+            transition: { duration: 0.1 },
           }}
           whileTap={{ scale: 0.95 }}
           variants={item}

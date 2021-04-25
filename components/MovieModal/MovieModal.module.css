@@ -17,6 +17,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  min-height: 90vh;
 }
 
 .CloseIcon {
@@ -32,6 +33,7 @@
   background-color: black;
   color: #ffb900;
 }
+
 .LoadingContainer {
   display: flex;
   align-items: center;
