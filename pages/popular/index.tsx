@@ -34,7 +34,7 @@ interface DataProps {
 
 const Popular = () => {
   const currentPage = useRef(1);
-  const { data, error, fetchNextPage } = useInfiniteQuery(
+  const { data, error, fetchNextPage } = useInfiniteQuery<{ data: DataProps }>(
     'popular',
     async ({ pageParam = currentPage.current }) => {
       const { data } = await axios.get(`/api/popular?page=${pageParam}`);
@@ -42,8 +42,8 @@ const Popular = () => {
       return data;
     },
     {
-      getNextPageParam() {
-        if (data?.pages[0]?.total_pages === currentPage.current) {
+      getNextPageParam: (lastPage) => {
+        if (lastPage?.data?.total_pages === currentPage.current) {
           return undefined;
         }
         return currentPage.current;

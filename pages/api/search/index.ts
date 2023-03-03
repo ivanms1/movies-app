@@ -2,7 +2,10 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import instance from '../../../utils/axiosInstance';
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { page, query } = req.query;
 
   if (page && query) {
@@ -14,4 +17,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } else {
     res.status(200).send({ data: null });
   }
-};
+}

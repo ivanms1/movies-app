@@ -7,7 +7,7 @@ import { InputGroup, Button, Spinner } from '@blueprintjs/core';
 import Layout from '../../components/Layout';
 import DisplayGrid from '../../components/DisplayGrid';
 
-import searchImage from '../../assets/search.svg';
+import SearchImage from '../../assets/search.svg';
 
 import styles from './search.module.css';
 
@@ -26,11 +26,11 @@ const Search = () => {
       return data;
     },
     {
-      getNextPageParam() {
+      getNextPageParam: (lastPage) => {
         if (!shouldFetch) {
           return undefined;
         }
-        if (data?.pages[0]?.total_pages === currentPage.current) {
+        if (lastPage?.data?.total_pages === currentPage.current) {
           return undefined;
         }
         return currentPage.current;
@@ -73,7 +73,7 @@ const Search = () => {
           <DisplayGrid key={i} movies={group?.data?.results} />
         ))}
         {!data?.pages?.[0]?.data?.results?.length && (
-          <img className={styles.SearchImage} src={searchImage} alt='search' />
+          <SearchImage className={styles.SearchImage} />
         )}
         <Waypoint onEnter={() => fetchNextPage()} bottomOffset='-50%' />
         {isLoading && <Spinner className={styles.Loader} intent='primary' />}

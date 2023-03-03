@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 import Layout from '../components/Layout';
 
-import couch from '../assets/couch.svg';
+import Couch from '../assets/couch.svg';
 
 import styles from './index.module.css';
 
@@ -22,7 +22,7 @@ const Home = () => (
             Discover popular movies
           </motion.p>
         </Link>
-        <img className={styles.Image} src={couch} alt='movies' />
+        <Couch className={styles.Image} />
         <Link href='/search'>
           <motion.p whileHover={{ scale: 1.2, rotate: -5 }}>
             Search your favorite movies

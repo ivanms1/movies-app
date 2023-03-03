@@ -2,7 +2,10 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import instance from '../../../utils/axiosInstance';
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { movieId } = req.query;
 
   try {
@@ -14,4 +17,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } catch (error) {
     res.status(400).send({ error });
   }
-};
+}

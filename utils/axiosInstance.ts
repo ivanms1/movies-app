@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://api.themoviedb.org/3',
+  baseURL: process.env.FETCH_BASE_URL,
   timeout: 1000,
   withCredentials: false,
 });

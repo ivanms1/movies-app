@@ -79,7 +79,7 @@ const DisplayGrid = ({ movies }: any) => {
           className={styles.MoviePoster}
           src={
             movie.poster_path
-              ? process.env.imageBaseUrl + movie.poster_path
+              ? process.env.NEXT_PUBLIC_IMAGE_BASE_URL + movie.poster_path
               : 'https://via.placeholder.com/185x278?text=No+Poster'
           }
           alt={movie.title}

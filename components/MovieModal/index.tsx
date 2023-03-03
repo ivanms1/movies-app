@@ -4,6 +4,8 @@ import { Toast } from '../Toaster';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 
+import { MovieProps } from '../../@types';
+
 import styles from './MovieModal.module.css';
 
 interface MovieModalProps {
@@ -25,7 +27,7 @@ const MovieModal = ({
   onClose,
   onClosed,
 }: MovieModalProps) => {
-  const { data, error } = useQuery(['movie', movieId], async () => {
+  const { data, error } = useQuery<MovieProps>(['movie', movieId], async () => {
     const { data } = await axios.get(`/api/movie?movieId=${movieId}`);
     return data?.data;
   });
@@ -50,7 +52,10 @@ const MovieModal = ({
         <div
           style={{
             background: data.backdrop_path
-              ? `url(${process.env.imageBackdropBaseUrl + data.backdrop_path})`
+              ? `url(${
+                  process.env.NEXT_PUBLIC_IMAGE_BACKDROP_BASE_URL +
+                  data.backdrop_path
+                })`
               : '#ffb903',
           }}
           className={styles.Container}
@@ -70,7 +75,9 @@ const MovieModal = ({
             </div>
             <div className={styles.ScoreAndTagline}>
               <div className={styles.ScoreContainer}>
-                <span className={styles.Score}>{data.vote_average * 10}%</span>
+                <span className={styles.Score}>
+                  {(data.vote_average * 10).toFixed()}%
+                </span>
                 <Spinner
                   value={data.vote_average / 10}
                   intent={getUserScoreColor(data.vote_average)}
