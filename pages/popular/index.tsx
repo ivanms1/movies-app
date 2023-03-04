@@ -1,7 +1,14 @@
 import { useRef } from 'react';
 import axios from 'axios';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useQuery,
+  QueryClient,
+  dehydrate,
+} from '@tanstack/react-query';
 import { Waypoint } from 'react-waypoint';
+
+import instance from '../../utils/axiosInstance';
 
 import Layout from '../../components/Layout';
 import DisplayGrid from '../../components/DisplayGrid';
@@ -33,7 +40,15 @@ interface DataProps {
 }
 
 const Popular = () => {
-  const currentPage = useRef(1);
+  const currentPage = useRef(2);
+  const { data: initialData } = useQuery(['initial-popular'], async () => {
+    currentPage.current = currentPage.current + 1;
+    const { data } = await axios.get(
+      `/api/popular?page=${currentPage.current}`
+    );
+
+    return data;
+  });
   const { data, error, fetchNextPage } = useInfiniteQuery<{ data: DataProps }>(
     ['popular'],
     async ({ pageParam = currentPage.current }) => {
@@ -43,6 +58,7 @@ const Popular = () => {
       return data;
     },
     {
+      enabled: currentPage.current !== 1,
       getNextPageParam: (lastPage) => {
         if (lastPage?.data?.total_pages === currentPage.current) {
           return undefined;
@@ -52,10 +68,6 @@ const Popular = () => {
     }
   );
 
-  if (!data) {
-    return null;
-  }
-
   if (error) {
     Toast?.show({
       message: 'An error ocurred',
@@ -63,12 +75,35 @@ const Popular = () => {
     });
   }
 
+  const pages = [
+    {
+      data: initialData.data,
+    },
+    ...(data?.pages ?? []).slice(1),
+  ];
+
   return (
-    <Layout>
+    <Layout
+      seo={{
+        title: 'Popular Movies',
+        description: 'Popular Movies',
+        openGraph: {
+          title: 'Popular Movies',
+          description: 'Popular Movies',
+          images: [
+            {
+              url:
+                process.env.NEXT_PUBLIC_IMAGE_BASE_URL +
+                pages[0]?.data?.results[0]?.poster_path,
+            },
+          ],
+        },
+      }}
+    >
       <div className={styles.Popular}>
         <h1 className={styles.Title}>Popular Movies</h1>
         <div className={styles.GridContainer}>
-          {data?.pages?.map((group, i) => (
+          {pages?.map((group, i) => (
             <DisplayGrid key={i} movies={group?.data?.results} />
           ))}
 
@@ -80,3 +115,21 @@ const Popular = () => {
 };
 
 export default Popular;
+
+export async function getStaticProps() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(['initial-popular'], async () => {
+    const { data } = await instance.get(
+      `/movie/popular?page=1&api_key=${process.env.API_KEY}`
+    );
+
+    return { data };
+  });
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+}

@@ -17,6 +17,7 @@
     "date-fns": "^2.11.1",
     "framer-motion": "^10.0.1",
     "next": "^13.2.3",
+    "next-seo": "^5.15.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-waypoint": "^9.0.2"
