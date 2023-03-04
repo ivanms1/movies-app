@@ -38,8 +38,8 @@ const Layout = ({ children, className, seo }: LayoutProps) => {
           images: [
             {
               url: seo?.openGraph?.images[0].url ?? DEFAULT_SEO_IMAGE,
-              width: seo?.openGraph?.images[0].width ?? 1200,
-              height: seo?.openGraph?.images[0].height ?? 630,
+              width: seo?.openGraph?.images[0].width ?? 2400,
+              height: seo?.openGraph?.images[0].height ?? 1260,
               alt: seo?.openGraph?.images[0].alt ?? 'Movie App',
             },
             ...(seo?.openGraph?.images ?? []).slice(1),

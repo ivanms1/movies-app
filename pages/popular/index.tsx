@@ -94,7 +94,7 @@ const Popular = () => {
             {
               url:
                 process.env.NEXT_PUBLIC_IMAGE_BASE_URL +
-                pages[0]?.data?.results[0]?.poster_path,
+                pages[0]?.data?.results[0]?.backdrop_path,
             },
           ],
         },
