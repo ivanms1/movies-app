@@ -1,7 +1,7 @@
 import format from 'date-fns/format';
 import { Dialog, Spinner, Icon } from '@blueprintjs/core';
 import { Toast } from '../Toaster';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 import { MovieProps } from '../../@types';

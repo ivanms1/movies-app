@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import axios from 'axios';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { Waypoint } from 'react-waypoint';
 
 import Layout from '../../components/Layout';
@@ -35,10 +35,11 @@ interface DataProps {
 const Popular = () => {
   const currentPage = useRef(1);
   const { data, error, fetchNextPage } = useInfiniteQuery<{ data: DataProps }>(
-    'popular',
+    ['popular'],
     async ({ pageParam = currentPage.current }) => {
       const { data } = await axios.get(`/api/popular?page=${pageParam}`);
       currentPage.current = currentPage.current + 1;
+
       return data;
     },
     {

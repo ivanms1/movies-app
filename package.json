@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@blueprintjs/core": "^3.24.0",
+    "@blueprintjs/core": "^4.17.4",
+    "@tanstack/react-query": "^4.24.10",
+    "@tanstack/react-query-devtools": "^4.24.12",
     "axios": "^0.21.2",
     "classnames": "^2.2.6",
     "date-fns": "^2.11.1",
@@ -17,7 +19,6 @@
     "next": "^13.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-query": "^3.39.3",
     "react-waypoint": "^9.0.2"
   },
   "devDependencies": {

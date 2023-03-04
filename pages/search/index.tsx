@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Waypoint } from 'react-waypoint';
 import { InputGroup, Button, Spinner } from '@blueprintjs/core';
@@ -17,7 +17,7 @@ const Search = () => {
   const currentPage = useRef(1);
 
   const { data, fetchNextPage, remove, isLoading } = useInfiniteQuery(
-    'search',
+    ['search'],
     async ({ pageParam = currentPage.current }) => {
       const { data } = await axios.get(
         `/api/search?page=${pageParam}&query=${query}`

@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import { AppProps } from 'next/app';
-import { QueryClient, QueryClientProvider, Hydrate } from 'react-query';
+import {
+  QueryClient,
+  QueryClientProvider,
+  Hydrate,
+} from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import Navbar from '../components/Navbar';
 
@@ -20,8 +25,8 @@ function MyApp({ Component, router, pageProps }: AppProps) {
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: 3600,
-            cacheTime: 3600,
+            staleTime: Infinity,
+            cacheTime: Infinity,
             refetchOnWindowFocus: false,
           },
         },
@@ -46,6 +51,7 @@ function MyApp({ Component, router, pageProps }: AppProps) {
             </motion.div>
           </div>
         </AnimatePresence>
+        <ReactQueryDevtools initialIsOpen={false} />
       </Hydrate>
     </QueryClientProvider>
   );
